@@ -1,15 +1,15 @@
 gulpstrap
 =========
 
-Gulp with bootstrap, nunjuck, jquery, less.
+Gulp config for bootstrap, nunjuck templates, jquery, less & livereload.
 
 Dependencies
 =========
 
-NPM, Gulp
+NPM, Gulp and a few others globally.
 
 ```
-npm install -g gulp bower less
+npm install -g gulp bower less livereload
 ```
 
 Getting Started
@@ -24,4 +24,4 @@ gulp
 
 You can edit the paths.json to add or remove files to be watched and compiled.
 
-More coming soon...
+more coming soon...
