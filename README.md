@@ -9,7 +9,7 @@ Dependencies
 NPM, Gulp and a few others globally.
 
 ```
-npm install -g gulp bower less livereload
+npm install -g gulp bower less nunjucks livereload
 ```
 
 Getting Started
