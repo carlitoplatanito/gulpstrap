@@ -15,8 +15,6 @@ npm install -g gulp bower less nunjucks livereload
 Getting Started
 =========
 
-To run simply cd into the project directory and install npm dependencies and gulp.
-
 Clone this as the base of your new project (then remove the .git directory)
 
 ```
