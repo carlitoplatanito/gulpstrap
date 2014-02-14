@@ -1,0 +1,17 @@
+{
+    "scripts": [
+        "bower_components/jquery/jquery.js",
+        "bower_components/bootstrap/js/*.js",
+        "src/js/**/*.js",
+        "src/js/main.js"
+    ],
+    "stylesheets": [
+        "src/css/*.less"
+    ],
+    "images": [
+        "src/img/*"
+    ],
+    "views": [
+        "src/views/**/*.html"
+    ]
+}

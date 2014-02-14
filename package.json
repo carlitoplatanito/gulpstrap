@@ -1,0 +1,14 @@
+{
+    "dependencies": {
+        "gulp-load-plugins": "*",
+        "gulp-util": "latest",
+        "gulp-bower": "*",
+        "gulp-concat": "*",
+        "gulp-uglify": "*",
+        "gulp-jshint": "*",
+        "gulp-less": "*",
+        "gulp-imagemin": "*",
+        "gulp-nunjucks-render": "*",
+        "gulp-connect": "*"
+    }
+}

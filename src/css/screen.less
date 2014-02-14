@@ -1,0 +1,80 @@
+/**
+ * Copyright Sentient Interactive, 2014
+ * 
+ */
+@import "bootstrap";
+/* Custom CSS Starts here */
+
+.welcome-template {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.grid-template {
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    h4 {
+        margin-top: 25px;
+    }
+    .row {
+        margin-bottom: 20px;
+    }
+    .row .row {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+    [class*="col-"] {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: #eee;
+        background-color: rgba(86,61,124,.15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+    }
+
+    hr {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
+
+.theme-showcase {
+    margin-top: 70px;
+
+    .theme-dropdown {
+        .dropdown-menu {
+          position: static;
+          display: block;
+          margin-bottom: 20px;
+        }
+
+        > p {
+            > .btn {
+                margin: 5px 0;
+            }
+        }
+    }
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {
+    @import "breakpoints/small.less";
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {
+    @import "breakpoints/medium.less";
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+    @import "breakpoints/large.less";
+}
