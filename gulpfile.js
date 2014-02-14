@@ -6,16 +6,15 @@
 var gulp = require('gulp');
 
 var plugins = require("gulp-load-plugins")();
-
-var paths = require('./paths.json');
+var gconf = require('./gulpconfig.json');
 
 // Download all bower dependencies and 3rd party components
 gulp.task('bower', function() {
-    return plugins.bower().pipe(gulp.dest('bower_components'));
+    return plugins.bower();
 });
 
 gulp.task('lint', function() {
-    return gulp.src(paths.scripts)
+    return gulp.src(gconf.scripts)
         .pipe(plugins.jshint({
             eqnull: true,
             sub: true
@@ -23,54 +22,72 @@ gulp.task('lint', function() {
         .pipe(plugins.jshint.reporter('default'));
 });
 
+/**
+ * Minify and copy all scripts to build path.
+ * 
+ * @return {[type]} [description]
+ */
 gulp.task('scripts', ['bower'], function() {
-// Minify and copy all JavaScript (except vendor script)
-    return gulp.src(paths.scripts)
-        .pipe(plugins.concat('application.js'))
-        .pipe(gulp.dest('build/js'))
+    // Minify and copy all JavaScript (except vendor script)
+    for (var outputFile in gconf.scripts) {
+        console.log('creating '+outputFile+'...');
+        gulp.src(gconf.scripts[outputFile].files)
+        .pipe(plugins.concat(outputFile))
         .pipe(plugins.uglify())
-        .pipe(plugins.concat('application.min.js'))
-        .pipe(gulp.dest('build/js'))
+        .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path))
         .pipe(plugins.connect.reload());
+    }
+    return;
 });
 
 gulp.task('styles', ['bower'], function() {
     // Minify and copy all Styles
-    return gulp.src(paths.stylesheets)
+    for (var outputFile in gconf.stylesheets) {
+        console.log('creating '+outputFile+'...');
+        gulp.src(gconf.stylesheets[outputFile].files)
         .pipe(plugins.less({
-            paths:  ['.', './bower_components/bootstrap/less'],
+            gconf: ".",
             sourceMap: true,
             compress: true
         }))
         //.pipe(plugins.minifyCss())
-        .pipe(plugins.concat('screen.min.css'))
-        .pipe(gulp.dest('build/css'))
+        .pipe(plugins.concat(outputFile))
+        .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path))
         .pipe(plugins.connect.reload());
+    }
+
+    return;
 });
 
 // Copy all static images
 gulp.task('images', function() {
-    return gulp.src(paths.images)
-        .pipe(plugins.imagemin({optimizationLevel: 5}))
-        .pipe(gulp.dest('build/img'))
+
+    for (var outputPath in gconf.images) {
+        console.log('compressing images to '+outputPath+'...');
+        gulp.src(gconf.images[outputPath].files)
+        .pipe(plugins.imagemin(gconf.images[outputPath].options))
+        .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
+    }
+
+    return;
 });
 
 // Compile templates
 gulp.task('views', function () {
-    gulp.src(paths.views)
-        .pipe(plugins.nunjucksRender({
-            config:{
-                'app_name': 'App Name',
-                'base_path': './'
-            }
-        }))
-        .pipe(gulp.dest('build'))
+    for (var outputPath in gconf.views) {
+        console.log('creating views in '+outputPath+'...');
+        gulp.src(gconf.views[outputPath].files)
+        .pipe(plugins.nunjucksRender(gconf.views[outputPath].context))
+        .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
+    }
+
+    return;
 });
 
 gulp.task('server', plugins.connect.server({
-    root: ['build'],
+    root: [gconf.build_path],
     port: 8080,
     livereload: true,
     open: {
@@ -81,10 +98,18 @@ gulp.task('server', plugins.connect.server({
 // Rerun the task when a file changes
 gulp.task('watch', function () {
 
-    gulp.watch(paths.scripts, ['scripts']);
-    gulp.watch(paths.stylesheets, ['styles']);
-    gulp.watch(paths.images, ['images']);
-    gulp.watch(paths.views, ['views']);
+    for (var o in gconf.scripts) {
+        gulp.watch(gconf.scripts[o].files, ['scripts']);
+    }
+    for (var o in gconf.stylesheets) {
+        gulp.watch(gconf.stylesheets[o].files, ['styles']);
+    }
+    for (var o in gconf.images) {
+        gulp.watch(gconf.images[o].files, ['images']);
+    }
+    for (var o in gconf.views) {
+        gulp.watch(gconf.views[o].files, ['views']);
+    }
 
 });
 

@@ -1,0 +1,36 @@
+{
+    "build_path" : "build/",
+    "views": {
+        "." : {
+            "context": {
+                "config": {
+                    "app_name": "App Name",
+                    "base_path": "/"
+                }
+            },
+            "files": "src/views/**/*.html"
+        }
+    },
+    "scripts": {
+        "application.min.js" : { 
+            "output_path": "js",
+            "files": ["src/js/**/*.js", "src/js/main.js"]
+        },
+        "vendors.min.js" : {
+            "output_path": "js",
+            "files": ["bower_components/jquery/jquery.js", "bower_components/bootstrap/dist/js/bootstrap.js"]
+        }
+    },
+    "stylesheets": {
+        "screen.min.css" : {
+            "output_path": "css",
+            "files": ["src/css/*.less"]
+        }
+    },
+    "images": {
+        "img" : {
+            "options": {"optimizationLevel": 5},
+            "files": ["src/img/*"]
+        }
+    }
+}

@@ -48,6 +48,6 @@ gulp lint # under construction
 Configuration
 =========
 
-You can edit the paths.json to add or remove files to be watched and minified.
+Check out gulpconfig.json for config options and to add or remove files to be watched.
 
 more coming soon...
