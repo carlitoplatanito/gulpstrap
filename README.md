@@ -30,7 +30,7 @@ npm install
 gulp
 ```
 
-of any of the specific tasks
+or any of the specific tasks
 
 ```
 gulp watch
