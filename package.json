@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "gulp": "*",
         "gulp-load-plugins": "*",
         "gulp-util": "latest",
         "gulp-bower": "*",
