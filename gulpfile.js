@@ -8,6 +8,11 @@ var gulp = require('gulp');
 var plugins = require("gulp-load-plugins")();
 var gconf = require('./gulpconfig.json');
 
+var default_browser = 'Google Chrome';
+if (process.platform === 'win32') {
+    default_browser = 'chrome';
+}
+
 // Download all bower dependencies and 3rd party components
 gulp.task('bower', function() {
     return plugins.bower();
@@ -34,8 +39,7 @@ gulp.task('scripts', ['bower'], function() {
         gulp.src(gconf.scripts[outputFile].files)
         .pipe(plugins.concat(outputFile))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path))
-        .pipe(plugins.connect.reload());
+        .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
     }
     return;
 });
@@ -91,9 +95,10 @@ gulp.task('server', plugins.connect.server({
     port: 8080,
     livereload: true,
     open: {
-        browser: (process.platform === 'win32' ? 'chrome' : 'Google Chrome')
+        browser: default_browser
     }
 }) );
+
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
@@ -115,13 +120,10 @@ gulp.task('watch', function () {
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
-    'server',
     'scripts',
     'styles',
     'images',
     'views',
+    'server',
     'watch',
 ]);
-
-
-

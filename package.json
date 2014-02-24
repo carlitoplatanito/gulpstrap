@@ -10,6 +10,7 @@
         "gulp-less": "*",
         "gulp-imagemin": "*",
         "gulp-nunjucks-render": "*",
-        "gulp-connect": "*"
+        "gulp-connect": "*",
+        "gulp-notify": "*"
     }
 }
