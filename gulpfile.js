@@ -91,7 +91,7 @@ gulp.task('server', plugins.connect.server({
     port: 8080,
     livereload: true,
     open: {
-        browser: 'Google Chrome'
+        browser: (process.platform === 'win32' ? 'chrome' : 'Google Chrome')
     }
 }) );
 
@@ -101,13 +101,13 @@ gulp.task('watch', function () {
     for (var o in gconf.scripts) {
         gulp.watch(gconf.scripts[o].files, ['scripts']);
     }
-    for (var o in gconf.stylesheets) {
+    for (o in gconf.stylesheets) {
         gulp.watch(gconf.stylesheets[o].files, ['styles']);
     }
-    for (var o in gconf.images) {
+    for (o in gconf.images) {
         gulp.watch(gconf.images[o].files, ['images']);
     }
-    for (var o in gconf.views) {
+    for (o in gconf.views) {
         gulp.watch(gconf.views[o].files, ['views']);
     }
 
