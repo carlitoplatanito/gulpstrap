@@ -18,7 +18,7 @@
         },
         "vendors.min.js" : {
             "output_path": "js",
-            "files": ["bower_components/jquery/jquery.js", "bower_components/bootstrap/dist/js/bootstrap.js"]
+            "files": ["bower_components/jquery/dist/jquery.js", "bower_components/bootstrap/dist/js/bootstrap.js"]
         }
     },
     "stylesheets": {
