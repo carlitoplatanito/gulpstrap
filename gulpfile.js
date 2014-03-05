@@ -5,7 +5,7 @@
 
 var gulp = require('gulp');
 
-var plugins = require("gulp-load-plugins")();
+var plugins = require("gulp-load-plugins")('lazy': false);
 var gconf = require('./gulpconfig.json');
 
 var default_browser = 'Google Chrome';
