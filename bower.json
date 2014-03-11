@@ -16,7 +16,6 @@
         "tests"
     ],
     "dependencies": {
-        "jquery": "1.11",
         "bootstrap": "latest"
     }
 }

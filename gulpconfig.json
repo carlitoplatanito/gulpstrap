@@ -8,29 +8,40 @@
                     "base_path": "/"
                 }
             },
-            "files": "src/views/**/*.html"
+            "files": [
+                "src/views/*.html"
+            ]
         }
     },
     "scripts": {
         "application.min.js" : { 
             "output_path": "js",
-            "files": ["src/js/**/*.js", "src/js/main.js"]
+            "files": [
+                "src/js/modules/*.js", 
+                "src/js/application.js"
+            ]
         },
         "vendors.min.js" : {
             "output_path": "js",
-            "files": ["bower_components/jquery/dist/jquery.js", "bower_components/bootstrap/dist/js/bootstrap.js"]
+            "files": [
+                "bower_components/bootstrap/js/*.js"
+            ]
         }
     },
     "stylesheets": {
         "screen.min.css" : {
             "output_path": "css",
-            "files": ["src/css/*.less"]
+            "files": [
+                "src/less/screen.less"
+            ]
         }
     },
     "images": {
         "img" : {
             "options": {"optimizationLevel": 5},
-            "files": ["src/img/*"]
+            "files": [
+                "src/img/*"
+            ]
         }
     }
 }
