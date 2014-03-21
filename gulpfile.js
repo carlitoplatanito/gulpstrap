@@ -1,7 +1,6 @@
 // Install deps:
-// npm install -g gulp bower less
+// sudo npm install -g gulp bower less
 // npm install
-
 
 var gulp = require('gulp');
 
@@ -18,6 +17,8 @@ gulp.task('bower', function() {
     return plugins.bower();
 });
 
+/**
+coming soon
 gulp.task('lint', function() {
     return gulp.src(gconf.scripts)
         .pipe(plugins.jshint({
@@ -26,24 +27,28 @@ gulp.task('lint', function() {
         }))
         .pipe(plugins.jshint.reporter('default'));
 });
+**/
 
 /**
- * Minify and copy all scripts to build path.
- * 
- * @return {[type]} [description]
+ * Concat and uglify all scripts into build path.
+ *
  */
 gulp.task('scripts', ['bower'], function() {
     // Minify and copy all JavaScript (except vendor script)
     for (var outputFile in gconf.scripts) {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
-        .pipe(plugins.concat(outputFile))
-        .pipe(plugins.uglify())
+        .pipe(plugins.concat(outputFile).on('error', plugins.util.log))
+        .pipe(plugins.uglify().on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
     }
     return;
 });
 
+/**
+ * Process LESS files and copy into build directory
+ *
+ */
 gulp.task('styles', ['bower'], function() {
     // Minify and copy all Styles
     for (var outputFile in gconf.stylesheets) {
@@ -53,23 +58,26 @@ gulp.task('styles', ['bower'], function() {
             gconf: ".",
             sourceMap: true,
             compress: true
-        }))
+        }).on('error', plugins.util.log))
         //.pipe(plugins.minifyCss())
-        .pipe(plugins.concat(outputFile))
+        //.pipe(plugins.concat(outputFile))
         .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path))
         .pipe(plugins.connect.reload());
     }
-    
+
     return;
 });
 
-// Copy all static images
+/**
+ * Copy and compress static images
+ *
+ */
 gulp.task('images', function() {
 
     for (var outputPath in gconf.images) {
         console.log('compressing images to '+outputPath+'...');
         gulp.src(gconf.images[outputPath].files)
-        .pipe(plugins.imagemin(gconf.images[outputPath].options))
+        .pipe(plugins.imagemin(gconf.images[outputPath].options).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
     }
@@ -77,12 +85,32 @@ gulp.task('images', function() {
     return;
 });
 
-// Compile templates
+// Copy files (ussually for fonts or other assets being copied)
+// from bower_components into the build directory
+gulp.task('copy', function() {
+
+    for (var outputPath in gconf.copy) {
+        gulp.src(gconf.copy[outputPath].files)
+        .pipe(gulp.dest(gconf.build_path+outputPath));
+    }
+
+    return;
+});
+
+/**
+ * Compile templates
+ *
+ */
+
+// first set some additional dynamic context
+//
+
 gulp.task('views', function () {
+
     for (var outputPath in gconf.views) {
         console.log('creating views in '+outputPath+'...');
         gulp.src(gconf.views[outputPath].files)
-        .pipe(plugins.nunjucksRender(gconf.views[outputPath].context))
+        .pipe(plugins.nunjucksRender(gconf.views[outputPath].context).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
     }
@@ -90,6 +118,10 @@ gulp.task('views', function () {
     return;
 });
 
+/**
+ * Start LiveReload Server
+ *
+ */
 gulp.task('server', plugins.connect.server({
     root: [gconf.build_path],
     port: 8080,
@@ -100,30 +132,41 @@ gulp.task('server', plugins.connect.server({
 }) );
 
 
-// Rerun the task when a file changes
-gulp.task('watch', function () {
+/**
+ * Watch for file changes
+ * But first, process all the files and start the livereload server
+ *
+ */
+gulp.task('watch', ['default', 'server'], function () {
 
     for (var o in gconf.scripts) {
-        gulp.watch(gconf.scripts[o].files, ['scripts']);
+        if (gconf.scripts[o].watch !== false) {
+            gulp.watch(gconf.scripts[o].watch, ['scripts']);
+        }
     }
     for (o in gconf.stylesheets) {
-        gulp.watch(gconf.stylesheets[o].files, ['styles']);
+        if (gconf.stylesheets[o].watch !== false) {
+            gulp.watch(gconf.stylesheets[o].watch, ['styles']);
+        }
+    }
+    for (o in gconf.views) {
+        if (gconf.views[o].watch !== false) {
+            gulp.watch(gconf.views[o].watch, ['views']);
+        }
     }
     for (o in gconf.images) {
         gulp.watch(gconf.images[o].files, ['images']);
     }
-    for (o in gconf.views) {
-        gulp.watch(gconf.views[o].files, ['views']);
-    }
 
 });
 
-// The default task (called when you run `gulp` from cli)
+/**
+ * Runs all the processes except for watch and livereload
+ */
 gulp.task('default', [
     'scripts',
     'styles',
     'images',
-    'views',
-    'server',
-    'watch',
+    'copy',
+    'views'
 ]);

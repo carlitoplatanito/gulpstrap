@@ -10,22 +10,31 @@
             },
             "files": [
                 "src/views/*.html"
+            ],
+            "watch": [
+                "src/views/**/*",
+                "src/views/*"
             ]
         }
     },
     "scripts": {
-        "application.min.js" : { 
+        "application.min.js" : {
             "output_path": "js",
             "files": [
-                "src/js/modules/*.js", 
+                "src/js/modules/*.js",
                 "src/js/application.js"
+            ],
+            "watch": [
+                "src/js/**/*",
+                "src/js/*"
             ]
         },
         "vendors.min.js" : {
             "output_path": "js",
             "files": [
                 "bower_components/bootstrap/js/*.js"
-            ]
+            ],
+            "watch": false
         }
     },
     "stylesheets": {
@@ -33,6 +42,10 @@
             "output_path": "css",
             "files": [
                 "src/less/screen.less"
+            ],
+            "watch": [
+                "src/less/**/*",
+                "src/less/*"
             ]
         }
     },
@@ -41,6 +54,13 @@
             "options": {"optimizationLevel": 5},
             "files": [
                 "src/img/*"
+            ]
+        }
+    },
+    "copy": {
+        "fonts" : {
+            "files": [
+                "bower_components/bootstrap/fonts/*"
             ]
         }
     }

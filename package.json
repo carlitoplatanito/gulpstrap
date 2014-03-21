@@ -1,16 +1,15 @@
 {
     "dependencies": {
-        "gulp": "*",
-        "gulp-load-plugins": "*",
+        "gulp": "latest",
+        "gulp-load-plugins": "latest",
         "gulp-util": "latest",
-        "gulp-bower": "*",
-        "gulp-concat": "*",
-        "gulp-uglify": "*",
-        "gulp-jshint": "*",
-        "gulp-less": "*",
-        "gulp-imagemin": "*",
-        "gulp-nunjucks-render": "*",
-        "gulp-connect": "*",
-        "gulp-notify": "*"
+        "gulp-bower": "latest",
+        "gulp-concat": "latest",
+        "gulp-uglify": "latest",
+        "gulp-jshint": "latest",
+        "gulp-less": "latest",
+        "gulp-imagemin": "latest",
+        "gulp-nunjucks-render": "latest",
+        "gulp-connect": "latest"
     }
 }
