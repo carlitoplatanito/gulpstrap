@@ -101,10 +101,6 @@ gulp.task('copy', function() {
  * Compile templates
  *
  */
-
-// first set some additional dynamic context
-//
-
 gulp.task('views', function () {
 
     for (var outputPath in gconf.views) {
