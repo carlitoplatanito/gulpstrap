@@ -1,7 +1,7 @@
 gulpstrap
 =========
 
-Gulp config for bootstrap, nunjuck templates, jquery, less & livereload.
+[Gulp](https://github.com/wearefractal/gulp) config for [bootstrap](http://getbootstrap.com/), [nunjuck](http://jlongster.github.io/nunjucks/) templates, [jquery](http://jquery.com/), [less](http://lesscss.org/) & [livereload](http://livereload.com/).
 
 Dependencies
 =========
