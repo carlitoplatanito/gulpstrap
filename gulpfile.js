@@ -29,7 +29,7 @@ gulp.task('lint', function() {
 
 /**
  * Minify and copy all scripts to build path.
- * 
+ *
  * @return {[type]} [description]
  */
 gulp.task('scripts', ['bower'], function() {
@@ -38,7 +38,7 @@ gulp.task('scripts', ['bower'], function() {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
         .pipe(plugins.concat(outputFile))
-        .pipe(plugins.uglify())
+        .pipe(plugins.uglify().on('error', plugins.gulp-util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
     }
     return;
@@ -59,7 +59,7 @@ gulp.task('styles', ['bower'], function() {
         .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path))
         .pipe(plugins.connect.reload());
     }
-    
+
     return;
 });
 

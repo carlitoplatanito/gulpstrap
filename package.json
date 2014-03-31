@@ -3,7 +3,7 @@
         "gulp": "*",
         "gulp-load-plugins": "*",
         "gulp-util": "latest",
-        "gulp-bower": "*",
+        "gulp-bower": "0.0.3",
         "gulp-concat": "*",
         "gulp-uglify": "*",
         "gulp-jshint": "*",
