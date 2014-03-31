@@ -34,7 +34,7 @@ gulp.task('scripts', ['bower'], function() {
     for (var outputFile in gconf.scripts) {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
-        .pipe(plugins.cached('scripting'))
+        //.pipe(plugins.cached('scripting'))
         .pipe(plugins.concat(outputFile).on('error', plugins.util.log))
         .pipe(plugins.uglify().on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
@@ -59,10 +59,10 @@ gulp.task('styles', ['bower'], function() {
             sourceMap: true,
             compress: true
         }).on('error', plugins.util.log))
-        //.pipe(plugins.minifyCss())
-        //.pipe(plugins.concat(outputFile))
-        .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path))
+        .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path+'/'+outputFile))
         .pipe(plugins.connect.reload());
+
+        console.log(gconf.build_path+gconf.stylesheets[outputFile].output_path);
     }
 
     return;

@@ -6,7 +6,7 @@
         "gulp-bower": "latest",
         "gulp-concat": "latest",
         "gulp-uglify": "latest",
-        "gulp-less": "latest",
+        "gulp-less": "latest"
         "cache-file": "ggriffiniii/cache-file",
         "gulp-imagemin": "latest",
         "gulp-nunjucks-render": "latest",
