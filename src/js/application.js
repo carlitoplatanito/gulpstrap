@@ -14,6 +14,4 @@ $(function() {
             link.removeClass('active');
         }
     });
-
-
 })();
