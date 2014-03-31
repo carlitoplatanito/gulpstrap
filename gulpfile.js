@@ -13,21 +13,16 @@ if (process.platform === 'win32') {
 }
 
 // Download all bower dependencies and 3rd party components
+// make sure it only runs once.
+var bower_ran = true;
 gulp.task('bower', function() {
-    return plugins.bower();
+    if (!bower_ran) {
+        return plugins.bower();
+        bower_ran = true;
+    } else {
+        return;
+    }
 });
-
-/**
-coming soon
-gulp.task('lint', function() {
-    return gulp.src(gconf.scripts)
-        .pipe(plugins.jshint({
-            eqnull: true,
-            sub: true
-        }))
-        .pipe(plugins.jshint.reporter('default'));
-});
-**/
 
 /**
  * Concat and uglify all scripts into build path.
@@ -38,6 +33,7 @@ gulp.task('scripts', ['bower'], function() {
     for (var outputFile in gconf.scripts) {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
+        .pipe(plugins.cached('scripting'))
         .pipe(plugins.concat(outputFile).on('error', plugins.util.log))
         .pipe(plugins.uglify().on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
@@ -51,9 +47,12 @@ gulp.task('scripts', ['bower'], function() {
  */
 gulp.task('styles', ['bower'], function() {
     // Minify and copy all Styles
+
     for (var outputFile in gconf.stylesheets) {
         console.log('creating '+outputFile+'...');
+
         gulp.src(gconf.stylesheets[outputFile].files)
+        //.pipe(plugins.cached(outputFile))
         .pipe(plugins.less({
             gconf: ".",
             sourceMap: true,
@@ -76,7 +75,9 @@ gulp.task('images', function() {
 
     for (var outputPath in gconf.images) {
         console.log('compressing images to '+outputPath+'...');
+
         gulp.src(gconf.images[outputPath].files)
+        .pipe(plugins.newer(gconf.build_path+outputPath))
         .pipe(plugins.imagemin(gconf.images[outputPath].options).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
@@ -88,10 +89,15 @@ gulp.task('images', function() {
 // Copy files (ussually for fonts or other assets being copied)
 // from bower_components into the build directory
 gulp.task('copy', function() {
+    var i = 0;
 
     for (var outputPath in gconf.copy) {
+
         gulp.src(gconf.copy[outputPath].files)
+        .pipe(plugins.newer(gconf.build_path+outputPath))
         .pipe(gulp.dest(gconf.build_path+outputPath));
+
+        i++;
     }
 
     return;
@@ -106,6 +112,8 @@ gulp.task('views', function () {
     for (var outputPath in gconf.views) {
         console.log('creating views in '+outputPath+'...');
         gulp.src(gconf.views[outputPath].files)
+        .pipe(plugins.cached(outputPath))
+        .pipe(plugins.changed(gconf.build_path+outputPath))
         .pipe(plugins.nunjucksRender(gconf.views[outputPath].context).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
@@ -125,7 +133,7 @@ gulp.task('server', plugins.connect.server({
     open: {
         browser: default_browser
     }
-}) );
+}));
 
 
 /**
@@ -160,6 +168,7 @@ gulp.task('watch', ['default', 'server'], function () {
  * Runs all the processes except for watch and livereload
  */
 gulp.task('default', [
+    'bower',
     'scripts',
     'styles',
     'images',
