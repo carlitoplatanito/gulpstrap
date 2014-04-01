@@ -34,7 +34,7 @@ gulp.task('scripts', ['bower'], function() {
     for (var outputFile in gconf.scripts) {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
-        //.pipe(plugins.cached('scripting'))
+        .pipe(plugins.cached(outputFile))
         .pipe(plugins.concat(outputFile).on('error', plugins.util.log))
         .pipe(plugins.uglify().on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
@@ -53,16 +53,14 @@ gulp.task('styles', ['bower'], function() {
         console.log('creating '+outputFile+'...');
 
         gulp.src(gconf.stylesheets[outputFile].files)
-        //.pipe(plugins.cached(outputFile))
+        .pipe(plugins.cached(outputFile))
         .pipe(plugins.less({
             gconf: ".",
             sourceMap: true,
             compress: true
         }).on('error', plugins.util.log))
-        .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path+'/'+outputFile))
+        .pipe(gulp.dest(gconf.build_path+gconf.stylesheets[outputFile].output_path))
         .pipe(plugins.connect.reload());
-
-        console.log(gconf.build_path+gconf.stylesheets[outputFile].output_path);
     }
 
     return;
@@ -113,8 +111,7 @@ gulp.task('views', function () {
     for (var outputPath in gconf.views) {
         console.log('creating views in '+outputPath+'...');
         gulp.src(gconf.views[outputPath].files)
-        //.pipe(plugins.cached(outputPath))
-        .pipe(plugins.changed(gconf.build_path+outputPath))
+        .pipe(plugins.cached(outputPath))
         .pipe(plugins.nunjucksRender(gconf.views[outputPath].context).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
@@ -135,6 +132,14 @@ gulp.task('server', plugins.connect.server({
         browser: default_browser
     }
 }));
+
+/**
+ * Clear cache
+ *
+ */
+gulp.task('clearCache', function() {
+    return plugins.cache.caches = {};
+});
 
 
 /**
@@ -169,6 +174,7 @@ gulp.task('watch', ['default', 'server'], function () {
  * Runs all the processes except for watch and livereload
  */
 gulp.task('default', [
+    'clearCache',
     'bower',
     'scripts',
     'styles',
