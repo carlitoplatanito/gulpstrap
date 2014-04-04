@@ -21,8 +21,9 @@
         "application.min.js" : {
             "output_path": "js",
             "files": [
-                "src/js/modules/*.js",
-                "src/js/application.js"
+                "src/js/config.js",
+                "src/js/**/*.js",
+                "src/js/main.js"
             ],
             "watch": [
                 "src/js/**/*",

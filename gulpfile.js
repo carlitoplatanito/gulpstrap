@@ -138,7 +138,7 @@ gulp.task('server', plugins.connect.server({
  *
  */
 gulp.task('clearCache', function() {
-    return plugins.cache.caches = {};
+    return plugins.cached.caches = {};
 });
 
 
