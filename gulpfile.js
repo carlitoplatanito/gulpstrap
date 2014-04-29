@@ -7,11 +7,6 @@ var gulp = require('gulp');
 var plugins = require("gulp-load-plugins")({lazy: false});
 var gconf = require('./gulpconfig.json');
 
-var default_browser = 'Google Chrome';
-if (process.platform === 'win32') {
-    default_browser = 'chrome';
-}
-
 // Download all bower dependencies and 3rd party components
 // make sure it only runs once.
 var bower_ran = false;
