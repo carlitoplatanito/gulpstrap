@@ -124,14 +124,13 @@ gulp.task('views', function () {
  * Start LiveReload Server
  *
  */
-gulp.task('server', plugins.connect.server({
-    root: [gconf.build_path],
-    port: 8080,
-    livereload: true,
-    open: {
-        browser: default_browser
-    }
-}));
+gulp.task('server', function() {
+    return plugins.connect.server({
+        root: [gconf.build_path],
+        port: 8080,
+        livereload: true
+    });
+});
 
 /**
  * Clear cache
