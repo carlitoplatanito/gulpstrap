@@ -7,9 +7,15 @@ var gulp = require('gulp');
 var plugins = require("gulp-load-plugins")({lazy: false});
 var gconf = require('./gulpconfig.json');
 
-// Download all bower dependencies and 3rd party components
-// make sure it only runs once.
 var bower_ran = false;
+
+/**
+ * Run bower update on current directory.
+ * Uses bower.json in root directory
+ *
+ * @param
+ * @returns
+ */
 gulp.task('bower', function() {
     if (!bower_ran) {
         return plugins.bower();
@@ -150,7 +156,7 @@ gulp.task('watch', ['default', 'server'], function () {
     }
     for (o in gconf.stylesheets) {
         if (gconf.stylesheets[o].watch !== false) {
-            gulp.watch(gconf.stylesheets[o].watch, ['styles']);
+            gulp.watch(gconf.stylesheets[o].watch, ['clearCache', 'styles']);
         }
     }
     for (o in gconf.views) {
