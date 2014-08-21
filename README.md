@@ -6,10 +6,10 @@ gulpstrap
 Dependencies
 =========
 
-NPM, Gulp and a few others globally.
+NPM, Gulp and Bower globally.
 
 ```
-npm install -g gulp bower less nunjucks livereload
+sudo npm install -g gulp bower
 ```
 
 Getting Started
@@ -41,7 +41,7 @@ gulp styles
 gulp views
 gulp images
 gulp server # starts livereload
-gulp lint # under construction
+gulp dupe
 ```
 
 Note: If you have Atom(http://atom.io) install the NPM Install and Gulp Helper packages. You will then just have to open the project and npm will install all the packages automatically, then press CTRL + OPTION(ALT) + G for gulp watch to run in the inline terminal.
