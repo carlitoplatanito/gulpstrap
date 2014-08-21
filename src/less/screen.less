@@ -4,6 +4,10 @@
  */
 @import "_bootstrap.less";
 
+body {
+    background-color: white;
+}
+
 /* Custom CSS Starts here */
 .welcome-template {
     margin-top: 70px;
@@ -12,6 +16,7 @@
     text-align: center;
 }
 
+/* making an edit */
 .grid-template {
     margin-top: 70px;
     margin-bottom: 30px;
@@ -64,8 +69,13 @@
     }
 }
 
-/* Extra small devices (phones, less than 768px) */
-/* No media query since this is the default in Bootstrap */
+/*
+ *
+ * Extra small devices (phones, less than 768px)
+ * have no media query since this is the default
+ * in Bootstrap (Mobile first)
+ *
+ */
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) {

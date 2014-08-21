@@ -1,17 +1,12 @@
-$(function() {
-    var currentUrl = new String(document.location);
+$(window).load(function() {
+    var $page = $('body');
 
-    // no file specified/index
-    if (currentUrl.indexOf('.html') <= -1) {
-        currentUrl += '/index.html';
-    }
+    Component.Navigation.init($page, {});
 
-    $('.nav.navbar-nav > li').each(function(){
-        var link = $(this);
-        if ( currentUrl.indexOf(link.find('a').attr('href')) > -1) {
-            link.addClass('active');
-        } else {
-            link.removeClass('active');
+    if ($page.attr('data-controller') && $page.attr('data-controller').length > 0) {
+        var page_controller = $page.attr('data-controller');
+        if (Controller[page_controller] !== undefined) {
+            Controller[page_controller].init($page);
         }
-    });
-})();
+    }
+});

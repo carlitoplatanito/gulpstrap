@@ -7,8 +7,6 @@ var gulp = require('gulp');
 var plugins = require("gulp-load-plugins")({lazy: false});
 var gconf = require('./gulpconfig.json');
 
-var bower_ran = false;
-
 /**
  * Run bower update on current directory.
  * Uses bower.json in root directory
@@ -16,6 +14,7 @@ var bower_ran = false;
  * @param
  * @returns
  */
+var bower_ran = false;
 gulp.task('bower', function() {
     if (!bower_ran) {
         return plugins.bower();
@@ -28,16 +27,15 @@ gulp.task('bower', function() {
 /**
  * Minify and copy all scripts to build path.
  *
- * @return {[type]} [description]
+ * @return
  */
 gulp.task('scripts', ['bower'], function() {
     // Minify and copy all JavaScript (except vendor script)
     for (var outputFile in gconf.scripts) {
         console.log('creating '+outputFile+'...');
         gulp.src(gconf.scripts[outputFile].files)
-        .pipe(plugins.cached(outputFile))
         .pipe(plugins.concat(outputFile).on('error', plugins.util.log))
-        .pipe(plugins.uglify().on('error', plugins.util.log))
+        //.pipe(plugins.uglify().on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+gconf.scripts[outputFile].output_path));
     }
     return;
@@ -46,6 +44,7 @@ gulp.task('scripts', ['bower'], function() {
 /**
  * Process LESS files and copy into build directory
  *
+ * @return
  */
 gulp.task('styles', ['bower'], function() {
     // Minify and copy all Styles
@@ -54,7 +53,6 @@ gulp.task('styles', ['bower'], function() {
         console.log('creating '+outputFile+'...');
 
         gulp.src(gconf.stylesheets[outputFile].files)
-        .pipe(plugins.cached(outputFile))
         .pipe(plugins.less({
             gconf: ".",
             sourceMap: true,
@@ -70,6 +68,7 @@ gulp.task('styles', ['bower'], function() {
 /**
  * Copy and compress static images
  *
+ * @return
  */
 gulp.task('images', function() {
 
@@ -86,8 +85,11 @@ gulp.task('images', function() {
     return;
 });
 
-// Copy files (ussually for fonts or other assets being copied)
-// from bower_components into the build directory
+/* Copy files (ussually for fonts or other assets being copied)
+ * from bower_components into the build directory
+ *
+ * @return
+ */
 gulp.task('copy', function() {
     var i = 0;
 
@@ -104,15 +106,15 @@ gulp.task('copy', function() {
 });
 
 /**
- * Compile templates
+ * Compile nunjucks templates
  *
+ * @return
  */
 gulp.task('views', function () {
 
     for (var outputPath in gconf.views) {
         console.log('creating views in '+outputPath+'...');
         gulp.src(gconf.views[outputPath].files)
-        .pipe(plugins.cached(outputPath))
         .pipe(plugins.nunjucksRender(gconf.views[outputPath].context).on('error', plugins.util.log))
         .pipe(gulp.dest(gconf.build_path+outputPath))
         .pipe(plugins.connect.reload());
@@ -124,6 +126,7 @@ gulp.task('views', function () {
 /**
  * Start LiveReload Server
  *
+ * @return
  */
 gulp.task('server', function() {
     return plugins.connect.server({
@@ -132,15 +135,6 @@ gulp.task('server', function() {
         livereload: true
     });
 });
-
-/**
- * Clear cache
- *
- */
-gulp.task('clearCache', function() {
-    return plugins.cached.caches = {};
-});
-
 
 /**
  * Watch for file changes
@@ -156,7 +150,7 @@ gulp.task('watch', ['default', 'server'], function () {
     }
     for (o in gconf.stylesheets) {
         if (gconf.stylesheets[o].watch !== false) {
-            gulp.watch(gconf.stylesheets[o].watch, ['clearCache', 'styles']);
+            gulp.watch(gconf.stylesheets[o].watch, ['styles']);
         }
     }
     for (o in gconf.views) {
@@ -174,7 +168,6 @@ gulp.task('watch', ['default', 'server'], function () {
  * Runs all the processes except for watch and livereload
  */
 gulp.task('default', [
-    'clearCache',
     'bower',
     'scripts',
     'styles',

@@ -11,8 +11,6 @@
         "gulp-imagemin": "latest",
         "gulp-nunjucks-render": "latest",
         "gulp-connect": "latest",
-        "gulp-cached": "latest",
-        "gulp-changed": "latest",
         "gulp-newer": "latest"
     }
 }

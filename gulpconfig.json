@@ -1,5 +1,5 @@
 {
-    "build_path" : "build/",
+    "build_path" : "htdocs/",
     "views": {
         "." : {
             "context": {
@@ -22,7 +22,8 @@
             "output_path": "js",
             "files": [
                 "src/js/config.js",
-                "src/js/**/*.js",
+                "src/js/components/*.js",
+                "src/js/controllers/*.js",
                 "src/js/main.js"
             ],
             "watch": [
