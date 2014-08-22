@@ -23,13 +23,12 @@ cd YOUR_PROJECT
 rm -rf .git
 ```
 
-Install the dependencies for your project then gulp
+Install the dependencies for your project.
 
 ```
 npm install
-gulp #will compress everything and move files around
-gulp watch #will compress and move stuff around, then watch your nunjuck templates, less & js files for changes
 ```
+Now just run ```gulp watch``` and open ```http://127.0.0.1:8080``` in a browser.
 
 or any of the specific tasks
 
