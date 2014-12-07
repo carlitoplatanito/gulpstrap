@@ -1,0 +1,10 @@
+
+
+{% macro input(name, label, value='', type='text') %}
+<div class="form-group">
+	{% if label %}
+		<label for="{{ name }}">{{ label }}</label>
+	{% endif %}
+	<input type="{{ type }}" class="form-control" name="{{ name }}" id="{{ name }}" value="{{ value | escape }}" />
+</div>
+{% endmacro %}
