@@ -2,7 +2,7 @@
     "name": "Gulpstrap",
     "version": "0.0.0",
     "repository": "https://github.com/carlosl/gulpstrap.git",
-    "description": "Redesign of current iCIMS control panel.",
+    "description": "Base gulp configuration with bootrap, jquery and nunjucks templating engine.",
     "homepage": "https://github.com/carlosl/gulpstrap",
     "license": "MIT",
     "private": true,
