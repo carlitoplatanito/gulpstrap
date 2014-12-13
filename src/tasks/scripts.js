@@ -49,5 +49,5 @@ gulp.task('scripts-reload', function() {
 });
 
 gulp.task('scripts-watch', function() {
-    gulp.watch(watch_files, ['scripts', 'ant', 'scripts-reload']);
+    gulp.watch(watch_files, ['scripts', 'scripts-reload']);
 });
