@@ -5,6 +5,7 @@ var package = require('../../package.json');
 // modules
 var gulp = require(config.nm + 'gulp');
 var gutil = require(config.nm + 'gulp-util');
+var data = require(config.nm + 'gulp-data');
 var nunjucksRender = require(config.nm + 'gulp-nunjucks-render');
 
 var output_path = config.build_path;
@@ -39,7 +40,10 @@ nunjucksRender.nunjucks.configure([watch_dir]);
  */
 gulp.task('nunjucks', function () {
 	return gulp.src(input_files)
-        .pipe(nunjucksRender(context).on('error', gutil.log))
+        .pipe(data(context))
+        .pipe(nunjucksRender({
+            path: `${config.src_path}views`
+        }).on('error', gutil.log))
         .pipe(gulp.dest(output_path));
 });
 

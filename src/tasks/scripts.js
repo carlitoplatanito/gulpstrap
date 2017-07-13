@@ -14,10 +14,10 @@ var output_file = 'application.min.js';
 
 var src_files = [
                 config.src_path + "js/config.js",
-                config.src_path + "bower_components/jquery/dist/jquery.js", // jquery
+                // config.nm + "jquery/dist/jquery.js", // jquery
                 // config.src_path + "bower_components/handlebars/handlebars.runtime.js", // handlebars runtime - since the templates are precompiled
-                config.src_path + "bower_components/bootstrap/dist/js/bootstrap.js", // bootstrap plugins
-                config.src_path + "js/modules/*.js",
+                config.nm + "bootstrap/dist/js/bootstrap.js", // bootstrap plugins
+                config.src_path + "js/components/*.js",
                 config.src_path + "js/controllers/*.js",
                 config.src_path + "js/main.js"
             ];

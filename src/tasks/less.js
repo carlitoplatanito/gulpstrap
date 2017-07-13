@@ -23,7 +23,7 @@ var watch_files = [
 
 var paths = [
             config.src_path + "/less",
-            config.src_path + "/bower_components/bootstrap/less"
+            config.nm + "/bootstrap/less"
         ];
 /**
  * Process LESS files and copy into build directory

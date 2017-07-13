@@ -8,10 +8,10 @@ Dependencies
 
 Make sure you have Node.js & NPM from http://nodejs.org/.
 
-Install Gulp and Bower globally. Open up your terminal
+Install Gulp globally. Open up your terminal
 
 ```
-sudo npm install -g gulp bower
+sudo npm install -g gulp
 ```
 
 Getting Started
@@ -31,18 +31,15 @@ Install the dependencies for your project.
 
 ```
 npm install
-bower install
 ```
-Now just run ```gulp watch```.
+Now just run `npm start`.
 
-or any of the specific tasks
+or any of the specific gulp tasks
 
 ```
 gulp build # builds the entire project
 gulp publish # builds the project then ftps it (check /src/tasks/ftp.js for creds and settings)
 ```
-
-Note: If you have Atom(http://atom.io) install the NPM Install and Gulp Helper packages. You will then just have to open the project and npm will install all the packages automatically, then press CTRL + OPTION(ALT) + G for gulp watch to run in the inline terminal.
 
 Configuration
 =========

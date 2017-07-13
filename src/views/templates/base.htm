@@ -9,9 +9,8 @@
         <link href="{{ config.base_path }}css/screen.css" rel="stylesheet">
 
         <!-- For speed, load jquery from CDN -->
-        <script>
-            document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/' + ('__proto__' in {} ? '2.1.0' : '1.11.0') + '/jquery.min.js"><\/script>');
-        </script>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -29,11 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">{{ config.app_name }}</a>
+                <a class="navbar-brand" href="{{ config.base_path }}">{{ config.app_name }}</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ config.base_path }}index.html">Home</a></li>
+                    <li><a href="{{ config.base_path }}index.html">Home</a></li>
                     <li><a href="{{ config.base_path }}showcase.html">Theme Showcase</a></li>
                     <li><a href="{{ config.base_path }}grid.html">Grid</a></li>
                 </ul>

@@ -37,7 +37,6 @@ gulp.task('default', [
  * Build the entire project
  */
 gulp.task('build', [
-    'bower',
     'scripts',
     'less',
     'imagemin',
